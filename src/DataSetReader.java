@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DataSetReader {
 	private static final String COMMA_DELIMITER = ",";
-	private static final String csvFile = "C:/Users/andrew/Documents/Year4/DataMining/WebCrawler/combineData.csv";
+	private static final String csvFile = "C:/Users/andrew/git/NFL-Data-Set/QB.csv";
 	private BufferedReader br = null; 
 	private String line = "";
 	private final String splitBy = ",";
@@ -32,74 +32,9 @@ public class DataSetReader {
 			line = br.readLine();
 			System.out.println(line);
 			while ((line = br.readLine()) != null) {	
-				String[] b = line.split(splitBy);
-				if(line.contains("QB")){
-					String year = b[0];
-					String name = b[1];
-					String position = b[4];
-					String heightFeet = b[5];
-					String heightInches = b[6];
-				    double heightFeetDouble = Double.parseDouble(heightFeet);
-					double heightInchesDouble = Double.parseDouble(heightInches);
-					String weight = b[7];
-					double weightDouble = Double.parseDouble(weight);
-					String arms = b[8];
-					double armsDouble = Double.parseDouble(arms);
-					String fortyYd = b[10];
-					double fortyYdDouble = Double.parseDouble(fortyYd);
-					String twentyyd = b[12];
-					double twentyydDouble = Double.parseDouble(twentyyd);
-					String tenyd = b[13];
-					double tenydDouble = Double.parseDouble(tenyd);
-					String twentyss = b[14];
-					double twentyssDouble = Double.parseDouble(twentyss);
-					String threecone = b[15];
-					double threeconeDouble = Double.parseDouble(threecone);
-					String vertical = b[16];
-					double verticalDouble = Double.parseDouble(vertical);
-					String broad = b[17];
-					double broadDouble = Double.parseDouble(broad);
-					String bench = b[18];
-					double benchDouble = Double.parseDouble(bench);
-					String nflgrade = b[25];
-					double nflgradeDouble = Double.parseDouble(nflgrade);
-	
-					
-//					System.out.println(year
-//							+ " "
-//							+name
-//							+" "
-//							+position
-//							+" "
-//							+heightFeetDouble
-//							+" "
-//							+heightInchesDouble
-//							+" "	
-//							+weightDouble
-//							+" "	
-//							+armsDouble
-//							+" "	
-//							+fortyYdDouble
-//							+" "	
-//							+twentyydDouble
-//							+" "	
-//							+tenydDouble
-//							+" "	
-//							+twentyssDouble
-//							+" "
-//							+threeconeDouble
-//							+" "
-//							+verticalDouble
-//							+" "
-//							+broadDouble
-//							+" "
-//							+benchDouble
-//							+" "
-//							+nflgradeDouble
-//							+" ");
-	
-				}
+				//System.out.println(line);
 			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -118,30 +53,27 @@ public class DataSetReader {
 		System.out.println("-------------------------------------------");
 		heightMean();
 		weightMean();
-		armsMean();
 		fortyydMean();
+		verticalMean();
 		nflGradeMean();
-		benchMean();
 		System.out.println();
 		System.out.println("-------------------------------------------");
 		System.out.println("             MEDIAN Analysis               ");
 		System.out.println("-------------------------------------------");
 		heightMedian();
 		weightMedian();
-		armsMedian();
 		fortyydMedian();
+		virticalMedian();
 		nflGradeMedian();
-		benchMedian();
 		System.out.println();
 		System.out.println("-------------------------------------------");
 		System.out.println("              MODE Analysis                ");
 		System.out.println("-------------------------------------------");
 		heightMode();
 		weightMode();
-		armsMode();
 		fortyydMode();
+		virticalMode();	
 		nflGradeMode();
-		benchMode();
 	}
 	
 	/********************************************************************************************************************
@@ -159,20 +91,16 @@ public class DataSetReader {
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String heightFeet = b[5];
-					String heightInches = b[6];
-				    double heightFeetDouble = Double.parseDouble(heightFeet);
+					String heightInches = b[3];
 					double heightInchesDouble = Double.parseDouble(heightInches);
-					heightInchesDouble = heightInchesDouble/10;
-					heightFeetDouble = heightFeetDouble + heightInchesDouble;
 					
-					sumOfHeight = sumOfHeight + heightFeetDouble;
+					sumOfHeight = sumOfHeight + heightInchesDouble;
 					count++;
 				}
 				
 			}
 			average = sumOfHeight/count;
-			System.out.println("Average Height: " + average);
+			System.out.println("average heightinchestotal: " + average);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -200,7 +128,7 @@ public class DataSetReader {
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String weight = b[7];
+					String weight = b[4];
 					double weightDouble = Double.parseDouble(weight);
 					
 					sumOfWeight = sumOfWeight + weightDouble;
@@ -209,44 +137,7 @@ public class DataSetReader {
 				
 			}
 			average = sumOfWeight/count;
-			System.out.println("Average Weight: " + average);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	//Gets Arms Strength Mean
-	public void armsMean(){
-		double sumOfArms =0;
-		double average=0;
-		int count=0;
-		try {
-			br = new BufferedReader(new FileReader(csvFile));
-
-			line = br.readLine();
-			while ((line = br.readLine()) != null) {	
-				String[] b = line.split(splitBy);
-				if(line.contains("QB")){
-					String arms = b[8];
-					double armsDouble = Double.parseDouble(arms);
-					
-					sumOfArms = sumOfArms + armsDouble;
-					count++;
-				}
-				
-			}
-			average = sumOfArms/count;
-			System.out.println("Average Arms: " + average);
+			System.out.println("average weight: " + average);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -274,7 +165,7 @@ public class DataSetReader {
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String fortyYd = b[11];
+					String fortyYd = b[5];
 					double fortyYdDouble = Double.parseDouble(fortyYd);
 					sumOfFortyyd = sumOfFortyyd + fortyYdDouble;
 					count++;
@@ -282,7 +173,7 @@ public class DataSetReader {
 				
 			}
 			average = sumOfFortyyd/count;
-			System.out.println("Average Forty-Yard: " + average);
+			System.out.println("average fortyyd: " + average);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -308,7 +199,7 @@ public class DataSetReader {
 			line = br.readLine();
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
-				String nflgrade = b[25];
+				String nflgrade = b[11];
 			    double nflgradeDouble = Double.parseDouble(nflgrade);
 			    
 				if(line.contains("QB") && nflgradeDouble > 0){
@@ -318,7 +209,7 @@ public class DataSetReader {
 				
 			}
 			average = sumOfGrade/count;
-			System.out.println("Average NFL-Grade: " + average);
+			System.out.println("average nflgrade: " + average);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -334,9 +225,9 @@ public class DataSetReader {
 		}
 	}
 	
-	//Gets bench Mean
-	public void benchMean(){
-		double sumOfBench =0;
+	//Gets vertical Mean
+	public void verticalMean(){
+		double sumOfvirtical =0;
 		double average=0;
 		int count=0;
 		try {
@@ -344,17 +235,17 @@ public class DataSetReader {
 			line = br.readLine();
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
-			    String bench = b[18];
-			    double benchDouble = Double.parseDouble(bench);
+				String vertical = b[7];
+			    double verticalDouble = Double.parseDouble(vertical);
 			    
-				if(line.contains("QB") && benchDouble > 0){
-					sumOfBench = sumOfBench + benchDouble;
-					count++;
+			    if(line.contains("QB") && verticalDouble > 0){
+			    	sumOfvirtical = sumOfvirtical + verticalDouble;
+			    	count++;
 				}
 				
 			}
-			average = sumOfBench/count;
-			System.out.println("Average bench: " + average);
+			average = sumOfvirtical/count;
+			System.out.println("average vertical: " + average);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -369,6 +260,7 @@ public class DataSetReader {
 			}
 		}
 	}
+	
 	/********************************************************************************************************************
 	 * 										Gets Median value for all attributes
 	 *******************************************************************************************************************/
@@ -376,25 +268,19 @@ public class DataSetReader {
 	//Height Median
 	public void heightMedian(){
 		List<Double> bag = new ArrayList<>();
-		double sumOfHeight =0;
-		double average=0;
 		int count=0;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[5];
+			String attribute = a[3];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String heightFeet = b[5];
-					String heightInches = b[6];
-				    double heightFeetDouble = Double.parseDouble(heightFeet);
+					String heightInches = b[3];
 					double heightInchesDouble = Double.parseDouble(heightInches);
-					heightInchesDouble = heightInchesDouble/10;
-					heightFeetDouble = heightFeetDouble + heightInchesDouble;
-					bag.add(heightFeetDouble);
+					bag.add(heightInchesDouble);
 					count++;
 				}
 				
@@ -417,19 +303,17 @@ public class DataSetReader {
 	
 	public void weightMedian(){
 		List<Double> bag = new ArrayList<>();
-		double sumOfWeight =0;
-		double average=0;
 		int count=0;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[7];
+			String attribute = a[4];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String weight = b[7];
+					String weight = b[4];
 					double weightDouble = Double.parseDouble(weight);
 					bag.add(weightDouble);
 					count++;
@@ -455,19 +339,17 @@ public class DataSetReader {
 	//Forty-Yard Median
 	public void fortyydMedian(){
 		List<Double> bag = new ArrayList<>();
-		double sumOfFortyyd =0;
-		double average=0;
 		
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			int count=0;
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[11];
+			String attribute = a[5];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String fortyYd = b[11];
+					String fortyYd = b[5];
 					double fortyYdDouble = Double.parseDouble(fortyYd);
 					bag.add(fortyYdDouble);
 					count++;
@@ -475,45 +357,6 @@ public class DataSetReader {
 				
 			}
 			getMedian(bag, attribute, count);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	//Arm Strength Median
-	public void armsMedian(){
-		List<Double> bag = new ArrayList<>();
-		double sumOfFortyyd =0;
-		double average=0;
-		
-		try {
-			br = new BufferedReader(new FileReader(csvFile));
-			int count=0;
-			line = br.readLine();
-			String[] a = line.split(splitBy);
-			String attribute = a[9];
-			while ((line = br.readLine()) != null) {	
-				String[] b = line.split(splitBy);
-				if(line.contains("QB")){
-					String fortyYd = b[9];
-					double fortyYdDouble = Double.parseDouble(fortyYd);
-					bag.add(fortyYdDouble);
-					count++;
-				}
-				
-			}
-			
-			getMedian(bag, attribute,count);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -540,10 +383,10 @@ public class DataSetReader {
 
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[25];
+			String attribute = a[11];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
-				String nflgrade = b[25];
+				String nflgrade = b[11];
 				double nflgradeDouble = Double.parseDouble(nflgrade);
 				if(line.contains("QB") && nflgradeDouble > 0){
 				    bag.add(nflgradeDouble);
@@ -567,22 +410,22 @@ public class DataSetReader {
 		}
 	}
 	
-	//Gets bench Median
-	public void benchMedian(){
+	//Gets vertical Median
+	public void virticalMedian(){
 		List<Double> bag = new ArrayList<>();
 		int count=0;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[18];
+			String attribute = a[7];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
-				String bench = b[18];
-			    double benchDouble = Double.parseDouble(bench);
+				String virtical = b[7];
+			    double virticalDouble = Double.parseDouble(virtical);
 			    
-				if(line.contains("QB") && benchDouble > 0){
-					bag.add(benchDouble);
+			    if(line.contains("QB") && virticalDouble > 0){
+					bag.add(virticalDouble);
 					count++;
 				}
 				
@@ -631,11 +474,11 @@ public class DataSetReader {
 
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[11];
+			String attribute = a[5];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String fortyYd = b[11];
+					String fortyYd = b[5];
 					double fortyYdDouble = Double.parseDouble(fortyYd);
 					bag.add(fortyYdDouble);
 					count++;
@@ -662,25 +505,18 @@ public class DataSetReader {
 	//Gets Height Mode
 	public void heightMode(){
 		List<Double> bag = new ArrayList<>();
-		int count=0;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[5];
+			String attribute = a[3];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String heightFeet = b[5];
-					String heightInches = b[6];
-				    double heightFeetDouble = Double.parseDouble(heightFeet);
-					double heightInchesDouble = Double.parseDouble(heightInches);
-					heightInchesDouble = heightInchesDouble/10;
-					heightFeetDouble = heightFeetDouble + heightInchesDouble;
-					bag.add(heightFeetDouble);
-					
-					count++;
+					String heightInches = b[3];
+				    double heightInchesDouble = Double.parseDouble(heightInches);
+					bag.add(heightInchesDouble);	
 				}
 				
 			}
@@ -710,11 +546,11 @@ public class DataSetReader {
 
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[8];
+			String attribute = a[4];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				if(line.contains("QB")){
-					String weight = b[8];
+					String weight = b[4];
 					double weightDouble = Double.parseDouble(weight);
 					bag.add(weightDouble);
 					
@@ -723,44 +559,6 @@ public class DataSetReader {
 				
 			}
 			getMode(bag, attribute);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	//Gets Arm Strength Mode
-	public void armsMode(){
-		List<Double> bag = new ArrayList<>();
-		int count=0;
-		try {
-			br = new BufferedReader(new FileReader(csvFile));
-
-			line = br.readLine();
-			String[] a = line.split(splitBy);
-			String attribute = a[9];
-			while ((line = br.readLine()) != null) {	
-				String[] b = line.split(splitBy);
-				if(line.contains("QB")){
-					String arms = b[9];
-					double armsDouble = Double.parseDouble(arms);
-					bag.add(armsDouble);
-					
-					count++;
-				}
-				
-			}
-			getMode(bag, attribute);
-			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -787,11 +585,11 @@ public class DataSetReader {
 
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[25];
+			String attribute = a[11];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
 				
-				String nflgrade = b[25];
+				String nflgrade = b[11];
 				double nflgradeDouble = Double.parseDouble(nflgrade);
 				if(line.contains("QB") && nflgradeDouble > 0){
 				    bag.add(nflgradeDouble);
@@ -815,24 +613,22 @@ public class DataSetReader {
 		}
 	}
 	
-	
-	//Gets bench Median
-	public void benchMode(){
+	//Gets virtical Mode
+	public void virticalMode(){
 		List<Double> bag = new ArrayList<>();
 		int count=0;
 		try {
 			br = new BufferedReader(new FileReader(csvFile));
 			line = br.readLine();
 			String[] a = line.split(splitBy);
-			String attribute = a[18];
+			String attribute = a[7];
 			while ((line = br.readLine()) != null) {	
 				String[] b = line.split(splitBy);
-				String bench = b[18];
-			    double benchDouble = Double.parseDouble(bench);
+				String virtical = b[7];
+			    double virticalDouble = Double.parseDouble(virtical);
 			    
-				if(line.contains("QB") && benchDouble > 0){
-
-					bag.add(benchDouble);
+				if(line.contains("QB") && virticalDouble > 0){
+					bag.add(virticalDouble);
 					count++;
 				}
 				
@@ -853,7 +649,7 @@ public class DataSetReader {
 		}
 	}
 	
-	//Get Mode for all Attributes, Pprevents re-writing this in each method 
+	//Get Mode for all Attributes, prevents re-writing this in each method 
 	public void getMode(List<Double> bag, String attribute ){
 		double bagValue=0;
 		double mostOccured=0;
